@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RecipeBook.Data;
+using RecipeBook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RecipeBookContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 
 var app = builder.Build();
 

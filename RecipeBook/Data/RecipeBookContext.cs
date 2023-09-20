@@ -5,11 +5,26 @@ namespace RecipeBook.Data;
 
 public class RecipeBookContext : DbContext
 {
-    public RecipeBookContext(DbContextOptions<RecipeBookContext> options) : base(options)
-    {
-    }
 
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite("Filename=MyTestDatabase.db");
+        }
+    }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<Ingredient>()
+            .HasIndex(u => u.IngredientName)
+            .IsUnique();
+        builder.Entity<Recipe>()
+            .HasIndex(u => u.RecipeName)
+            .IsUnique();
+
+    }
 }
