@@ -478,3 +478,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/RecipeBook/MyDatabase.db
+/RecipeBook/MyDatabase.db-wal
+/RecipeBook/MyDatabase.db-shm
