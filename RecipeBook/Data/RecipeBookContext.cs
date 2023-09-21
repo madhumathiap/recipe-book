@@ -10,6 +10,10 @@ public class RecipeBookContext : DbContext
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
+    public RecipeBookContext(DbContextOptions<RecipeBookContext> options) : base(options)
+    {
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
