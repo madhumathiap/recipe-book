@@ -16,6 +16,11 @@ builder.Services.AddScoped<IIngredientService, IngredientService>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<RecipeBookContext>();
+    dbContext.Database.EnsureCreated();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

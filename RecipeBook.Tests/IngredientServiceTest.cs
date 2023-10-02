@@ -5,26 +5,30 @@ namespace RecipeBook.Tests;
 
 public class IngredientServiceTest
 {
-
     private readonly IngredientService _ingredientService;
-    RecipeBookContext _context = new();
+    private readonly RecipeBookContext _recipeBookContext = new RecipeBookContext();
+
     public IngredientServiceTest()
     {
-        _context.Database.EnsureDeleted();
-        _context.Database.EnsureCreated();
-        //_context.Database.Migrate();
-        _ingredientService = new IngredientService(_context);
+        _recipeBookContext.Database.EnsureDeleted();
+        _recipeBookContext.Database.EnsureCreated();
 
+        _ingredientService = new IngredientService(_recipeBookContext);
     }
 
     [Fact]
-    public async Task NewIngredient_Should_Be_Added_Successfully()
+    public async Task When_NewIngredient_Is_Added_Then_It_Should_Be_Retrieved_Successfully()
     {
-        var ingredients = await _ingredientService.GetIngredientsAsync();
-        Assert.Empty(ingredients);
+        // Arrange
+        var existingIngredients = await _ingredientService.GetIngredientsAsync();
+        Assert.Empty(existingIngredients);
+
+        // Act
         await _ingredientService.AddIngredientAsync("tomato");
-        var ingredients1 = await _ingredientService.GetIngredientsAsync();
-        Assert.Single(ingredients1);
-        Assert.Equal("tomato", ingredients1[0].IngredientName);
+
+        // Assert
+        var addedIngredient = await _ingredientService.GetIngredientsAsync();
+        Assert.Single(addedIngredient);
+        Assert.Equal("tomato", addedIngredient[0].IngredientName);
     }
 }
