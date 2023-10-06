@@ -27,15 +27,15 @@ public class RecipeServiceTest
             ServingSize = 1,
             CreatedBy = "Madhu",
             Steps = "blah blah",
-            RecipeIngredients = new List<RecipeIngredientss>()
+            RecipeIngredients = new List<RecipeIngredients>()
             {
-                new RecipeIngredientss
+                new RecipeIngredients
                 {
                     Name = "Milk",
                     Quantity = 1,
                     Unit = "litre"
                 },
-                new RecipeIngredientss
+                new RecipeIngredients
                 {
                     Name = "Sugar",
                     Quantity = 250,
