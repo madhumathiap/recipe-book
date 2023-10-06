@@ -31,26 +31,27 @@ public class IngredientService : IIngredientService
         }
     }
 
+    //Adding Ingredient 
+    public async Task<int> GetOrAddIngredientAsync(string name)
+    {
+        var existingIngredient = await _recipeBookContext.Ingredients.FirstOrDefaultAsync(x => x.IngredientName == name);
+        if (existingIngredient != null)
+        {
+            return existingIngredient.Id;
+        }
+        else
+        {
+            var ingredient = new Ingredient();
+            ingredient.IngredientName = name;
+            await _recipeBookContext.Ingredients.AddAsync(ingredient);
+            await _recipeBookContext.SaveChangesAsync();
+            return ingredient.Id;
+        }
+    }
+
     //Get Ingredients
     public async Task<List<Ingredient>> GetIngredientsAsync()
     {
-        List<Ingredient> ingredientList = [];
-        try
-        {
-            foreach (var item in await _recipeBookContext.Ingredients.ToListAsync())
-            {
-                var ingredient = new Ingredient
-                {
-                    IngredientId = item.IngredientId,
-                    IngredientName = item.IngredientName
-                };
-                ingredientList.Add(ingredient);
-            }
-            return ingredientList;
-        }
-        catch
-        {
-            return ingredientList;
-        }
+        return await _recipeBookContext.Ingredients.ToListAsync();
     }
 }

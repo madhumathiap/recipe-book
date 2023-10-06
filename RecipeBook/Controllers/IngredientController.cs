@@ -8,7 +8,6 @@ namespace RecipeBook.Controllers;
 [ApiController]
 public class IngredientController : ControllerBase
 {
-
     private readonly IIngredientService _ingredientService;
 
     public IngredientController(IIngredientService ingredientService)
@@ -19,13 +18,14 @@ public class IngredientController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> AddIngredient(AddIngredientRequest request)
     {
-        var isSuccess = await _ingredientService.AddIngredientAsync(request.name);
+        var isSuccess = await _ingredientService.AddIngredientAsync(request.Name);
 
         var model = new ResponseModel
         {
             IsSuccess = isSuccess,
-            Message = isSuccess ? "Ingredient addition unsuccessful" : "Ingredient addition unsuccessful"
+            Message = isSuccess ? "Ingredient addition successful" : "Ingredient addition unsuccessful"
         };
+
         return isSuccess ? Ok(model) : BadRequest(model);
     }
 
@@ -36,4 +36,3 @@ public class IngredientController : ControllerBase
         return Ok(ingredientList);
     }
 }
-

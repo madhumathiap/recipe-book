@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeBook.Data;
 
@@ -10,9 +11,11 @@ using RecipeBook.Data;
 namespace RecipeBook.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    partial class RecipeBookContextModelSnapshot : ModelSnapshot
+    [Migration("20231004215737_Added-Reference-Keys")]
+    partial class AddedReferenceKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -52,10 +55,6 @@ namespace RecipeBook.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RecipeSteps")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ServingSize")
                         .HasColumnType("INTEGER");
 
@@ -76,8 +75,8 @@ namespace RecipeBook.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("REAL");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("INTEGER");
