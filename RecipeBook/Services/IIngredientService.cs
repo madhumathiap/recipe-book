@@ -6,4 +6,5 @@ public interface IIngredientService
 {
     Task<bool> AddIngredientAsync(string name);
     Task<List<Ingredient>> GetIngredientsAsync();
+    Task<int> GetOrAddIngredientAsync(string name);
 }

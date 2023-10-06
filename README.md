@@ -17,3 +17,7 @@
 - Docker
 - Azure VM
 
+#### Commands
+
+`dotnet ef migrations add name`
+
