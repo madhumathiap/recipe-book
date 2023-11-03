@@ -1,6 +1,11 @@
 ﻿namespace RecipeBook.Response;
-
-public class RecipeResponseModel
+public class PaginatedRecipeResponseModel
+{
+    public List<Recipe> Recipes { get; set; }
+    public int PageIndex { get; set; }
+    public int TotalPages { get; set; }
+}
+public class Recipe
 {
     public string RecipeName { get; set; }
     public int ServingSize { get; set; }

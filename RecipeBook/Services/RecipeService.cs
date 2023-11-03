@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeBook.Data;
+using RecipeBook.Helper;
 using RecipeBook.Models;
 using RecipeBook.Requests;
 
@@ -45,11 +46,21 @@ public class RecipeService : IRecipeService
             return false;
         }
     }
-    public async Task<List<Recipe>> GetRecipesAsync()
+    public async Task<PaginatedList<Recipe>> GetRecipesAsync(int? page, int? pageSize, string? searchTerm, string[]? ingredients)
     {
-        var recipes = await _recipeBookContext.Recipes.Include(r => r.RecipeIngredients)
+        var recipes = _recipeBookContext.Recipes.Include(r => r.RecipeIngredients)
                                                       .ThenInclude(ri => ri.Ingredient)
-                                                      .ToListAsync();
-        return recipes;
+                                                      .AsQueryable();
+        if (searchTerm != null)
+        {
+            recipes = recipes.Where(r => EF.Functions.Like(r.RecipeName, "%" + searchTerm + "%")
+                                 || EF.Functions.Like(r.RecipeSteps, "%" + searchTerm + "%")
+                                 || r.RecipeIngredients.Any(i => EF.Functions.Like(i.Ingredient.IngredientName, "%" + searchTerm + "%")));
+        }
+        if (ingredients != null)
+        {
+            recipes = recipes.Where(r => r.RecipeIngredients.Any(i => ingredients.Any(x => EF.Functions.Like(i.Ingredient.IngredientName, x))));
+        }
+        return await PaginatedList<Recipe>.CreateAsync(recipes.AsNoTracking(), page ?? 1, pageSize ?? 10);
     }
 }
