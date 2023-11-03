@@ -1,0 +1,50 @@
+﻿@using RecipeBook.Api.Client
+@model PaginatedRecipeResponseModel
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<div style="text-align: right">
+    <a asp-controller="Recipe" asp-action="Add">
+        <button class="btn btn-primary">Add Recipe</button>
+    </a>
+</div>
+@foreach(var recipe in Model.Recipes)
+{
+    <div class="card">
+        <h3>@recipe.RecipeName</h3>
+        <p>@recipe.Steps</p>
+
+        <a asp-controller="Recipe" asp-action="Edit" asp-route-Id="@recipe.Id">
+            <button class="btn btn-primary">Edit</button>
+        </a>
+        <a asp-controller="Home" asp-action="ViewRecipe" asp-route-Id="@recipe.Id">
+            <button class="btn btn-secondary">View</button>
+        </a>
+    </div>
+}
+@* <div class="card">
+    <h3>Recipe 1</h3>
+    <p>lorem ipsium lorem ipsium lorem ipsium lorem ipsium lorem ipsium </p>
+
+    <a asp-controller="Recipe" asp-action="Edit" asp-route-Id="1">
+        <button class="btn btn-primary">Edit</button>
+    </a>
+    <a asp-controller="Home" asp-action="ViewRecipe" asp-route-Id="1">
+        <button class="btn btn-secondary">View</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>Recipe 2</h3>
+    <p>lorem ipsium lorem ipsium lorem ipsium lorem ipsium lorem ipsium </p>
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-secondary">View</button>
+</div> *@
+
+<div class="pagination">
+    <button class="btn btn-secondary">Previous</button>
+    <button class="btn btn-page">1</button>
+    <button class="btn btn-page">2</button>
+    <button class="btn btn-secondary">Next</button>
+</div>

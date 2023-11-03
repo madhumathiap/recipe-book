@@ -59,7 +59,11 @@ public class RecipeService : IRecipeService
         }
         if (ingredients != null)
         {
-            recipes = recipes.Where(r => r.RecipeIngredients.Any(i => ingredients.Any(x => EF.Functions.Like(i.Ingredient.IngredientName, x))));
+            foreach (string ingredient in ingredients)
+            {
+
+                recipes = recipes.Where(r => r.RecipeIngredients.Any(i => ingredients.Any(x => x == i.Ingredient.IngredientName)));
+            }
         }
         return await PaginatedList<Recipe>.CreateAsync(recipes.AsNoTracking(), page ?? 1, pageSize ?? 10);
     }

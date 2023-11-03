@@ -77,7 +77,7 @@ public class RecipeServiceTest : CreateService
         await _recipeService.AddRecipeAsync(newRecipe);
 
         // Act
-        var addedRecipe = await _recipeService.GetRecipesAsync();
+        var addedRecipe = await _recipeService.GetRecipesAsync(null, null, null, null);
 
         // Assert
         Assert.Single(addedRecipe);
