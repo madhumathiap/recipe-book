@@ -1,19 +1,16 @@
-using RecipeBook.Data;
+using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Services;
 
 namespace RecipeBook.Tests;
 
-public class IngredientServiceTest
+[Collection("Seq")]
+public class IngredientServiceTest : CreateService
 {
-    private readonly IngredientService _ingredientService;
-    private readonly RecipeBookContext _recipeBookContext = new RecipeBookContext();
+    private readonly IIngredientService _ingredientService;
 
     public IngredientServiceTest()
     {
-        _recipeBookContext.Database.EnsureDeleted();
-        _recipeBookContext.Database.EnsureCreated();
-
-        _ingredientService = new IngredientService(_recipeBookContext);
+        _ingredientService = serviceProvider.GetRequiredService<IIngredientService>();
     }
 
     [Fact]

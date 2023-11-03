@@ -4,7 +4,6 @@ using RecipeBook.Response;
 using RecipeBook.Services;
 
 namespace RecipeBook.Controllers;
-[Route("api/[controller]")]
 [ApiController]
 public class IngredientController : ControllerBase
 {
@@ -16,6 +15,7 @@ public class IngredientController : ControllerBase
     }
 
     [HttpPost]
+    [Route("api/ingredient")]
     public async Task<ActionResult> AddIngredient(AddIngredientRequest request)
     {
         var isSuccess = await _ingredientService.AddIngredientAsync(request.Name);
@@ -30,6 +30,7 @@ public class IngredientController : ControllerBase
     }
 
     [HttpGet]
+    [Route("api/ingredients")]
     public async Task<ActionResult> GetAvailableIngredients()
     {
         var ingredientList = await _ingredientService.GetIngredientsAsync();

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecipeBook.Models;
+using RecipeBook.Helper;
 using RecipeBook.Requests;
 using RecipeBook.Response;
 using RecipeBook.Services;
 
 namespace RecipeBook.Controllers;
-[Route("api/[controller]")]
 [ApiController]
 public class RecipeController : ControllerBase
 {
@@ -17,6 +16,7 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPost]
+    [Route("api/recipe")]
     public async Task<ActionResult> AddRecipe(AddRecipeRequest request)
     {
         var isSuccess = await _recipeService.AddRecipeAsync(request);
@@ -31,18 +31,19 @@ public class RecipeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAvailableRecipes()
+    [Route("api/recipes")]
+    public async Task<ActionResult> GetAvailableRecipes(int? page, int? pageSize, string? searchTerm, [FromQuery] string[]? ingredients)
     {
-        var recipeList = MapToRecipeResponseModel(await _recipeService.GetRecipesAsync());
+        var recipeList = MapToRecipeResponseModel(await _recipeService.GetRecipesAsync(page, pageSize, searchTerm, ingredients));
         return Ok(recipeList);
     }
 
-    private List<RecipeResponseModel> MapToRecipeResponseModel(List<Recipe> recipes)
+    private PaginatedRecipeResponseModel MapToRecipeResponseModel(PaginatedList<Models.Recipe> paginatedRecipes)
     {
-        var recipesResponse = new List<RecipeResponseModel>();
-        foreach (var recipe in recipes)
+        var recipesResponse = new List<Recipe>();
+        foreach (var recipe in paginatedRecipes)
         {
-            var recipeResponseModel = new RecipeResponseModel
+            var recipes = new Recipe
             {
                 RecipeName = recipe.RecipeName,
                 CreatedBy = recipe.CreatedBy,
@@ -61,9 +62,15 @@ public class RecipeController : ControllerBase
                 };
                 ingredients.Add(ingredient);
             }
-            recipeResponseModel.Ingredients = ingredients;
-            recipesResponse.Add(recipeResponseModel);
+            recipes.Ingredients = ingredients;
+            recipesResponse.Add(recipes);
         }
-        return recipesResponse;
+        var paginatedRecipesResponseModel = new PaginatedRecipeResponseModel()
+        {
+            TotalPages = paginatedRecipes.TotalPages,
+            PageIndex = paginatedRecipes.PageIndex,
+            Recipes = recipesResponse
+        };
+        return paginatedRecipesResponseModel;
     }
 }
