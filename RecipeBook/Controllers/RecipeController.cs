@@ -32,6 +32,7 @@ public class RecipeController : ControllerBase
 
     [HttpGet]
     [Route("api/recipes")]
+    [ProducesResponseType<PaginatedRecipeResponseModel>(200)]
     public async Task<ActionResult> GetAvailableRecipes(int? page, int? pageSize, string? searchTerm, [FromQuery] string[]? ingredients)
     {
         var recipeList = MapToRecipeResponseModel(await _recipeService.GetRecipesAsync(page, pageSize, searchTerm, ingredients));
@@ -45,6 +46,7 @@ public class RecipeController : ControllerBase
         {
             var recipes = new Recipe
             {
+                Id = recipe.Id,
                 RecipeName = recipe.RecipeName,
                 CreatedBy = recipe.CreatedBy,
                 CreatedAt = recipe.CreatedAt,

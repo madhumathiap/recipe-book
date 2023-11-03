@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook", "RecipeBook\RecipeBook.csproj", "{E21F4DBA-4C80-4EEE-9B7B-72F491E97D3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook.Api", "RecipeBook\RecipeBook.Api.csproj", "{E21F4DBA-4C80-4EEE-9B7B-72F491E97D3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11C08828-E27B-4BAF-9313-64FD1FA4DA5F}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook.Tests", "RecipeBook.Tests\RecipeBook.Tests.csproj", "{EAA8D1B3-E449-4312-8ABC-7B4751A739B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook.Web", "RecipeBook.Web\RecipeBook.Web.csproj", "{7C69A754-89C2-4273-B162-46A278E4DC9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{EAA8D1B3-E449-4312-8ABC-7B4751A739B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAA8D1B3-E449-4312-8ABC-7B4751A739B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAA8D1B3-E449-4312-8ABC-7B4751A739B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C69A754-89C2-4273-B162-46A278E4DC9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C69A754-89C2-4273-B162-46A278E4DC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C69A754-89C2-4273-B162-46A278E4DC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C69A754-89C2-4273-B162-46A278E4DC9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

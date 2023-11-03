@@ -1,0 +1,44 @@
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+    background-color: white;
+    text-align: center;
+    padding: 5px;
+    box-shadow: 5px 5px 8px 5px lightgrey;
+}
+
+body {
+    margin: 0px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.btn {
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 50px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        font-weight: bold;
+    }
+
+.btn-primary {
+    background-color: darkolivegreen;
+}
+
+.btn-secondary {
+    color: black;
+    background-color: lightgrey;
+}
+
+a{
+    text-decoration: none;
+}
